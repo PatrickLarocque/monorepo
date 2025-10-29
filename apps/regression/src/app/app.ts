@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { utils } from '@rtt/utils';
+import { NxWelcome } from './nx-welcome';
 
 @Component({
-  imports: [RouterModule],
+  imports: [NxWelcome, RouterModule],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-
-  getMessage(): string {
-    return utils();
-  }
+  protected title = 'regression';
 }

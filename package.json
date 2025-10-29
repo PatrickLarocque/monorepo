@@ -1,10 +1,17 @@
 {
-  "name": "@rtt/source",
+  "name": "@rtt/rtt",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "ng": "nx",
+    "start": "nx serve rtt",
+    "build": "nx build rtt",
+    "test": "nx test rtt",
+    "lint": "nx lint rtt"
+  },
   "private": true,
   "dependencies": {
+    "@angular/aria": "^0.0.1",
     "@angular/common": "~20.3.0",
     "@angular/compiler": "~20.3.0",
     "@angular/core": "~20.3.0",
@@ -32,6 +39,7 @@
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/node": "20.19.9",
     "@typescript-eslint/utils": "^8.40.0",
     "angular-eslint": "^20.3.0",
     "eslint": "^9.8.0",
