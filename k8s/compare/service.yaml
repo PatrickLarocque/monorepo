@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: compare
+  namespace: dev
+spec:
+  selector:
+    app: compare
+  ports:
+  - port: 80
+    targetPort: 80

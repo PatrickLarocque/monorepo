@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: regression
+  namespace: dev
+  labels:
+    app: regression
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: regression
+  template:
+    metadata:
+      labels:
+        app: compare
+    spec:
+      containers:
+      - name: compare
+        image: ghcr.io/patricklarocque/regression:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
