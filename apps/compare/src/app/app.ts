@@ -9,8 +9,8 @@ import { utils } from '@rtt/utils';
   styleUrl: './app.css',
 })
 export class App {
-
   getMessage(): string {
+    // Test change for affected detection
     return utils();
   }
 }
