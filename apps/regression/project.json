@@ -5,6 +5,11 @@
   "prefix": "app",
   "sourceRoot": "apps/regression/src",
   "tags": [],
+  "implicitDependencies": [],
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*"],
+    "production": ["default", "{projectRoot}/Dockerfile"]
+  },
   "targets": {
     "build": {
       "executor": "@angular/build:application",
