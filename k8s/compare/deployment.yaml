@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: compare
-        image: ghcr.io/patricklarocque/compare:latest
+        image: ghcr.io/patricklarocque/compare:5f9195bcfd61adc78281f8458d9a10b89b660422
         ports:
         - containerPort: 80
         resources:
