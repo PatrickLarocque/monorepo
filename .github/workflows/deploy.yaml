@@ -30,12 +30,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug SHAs
+        run: |
+          echo "Base SHA: ${{ steps.set-shas.outputs.base }}"
+          echo "Head SHA: ${{ steps.set-shas.outputs.head }}"
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          git log --oneline -10
+
       - name: Get affected apps
         id: affected
         run: |
+          echo "Running: npx nx show projects --affected --type=app --base=${{ steps.set-shas.outputs.base }} --head=${{ steps.set-shas.outputs.head }}"
           AFFECTED=$(npx nx show projects --affected --type=app --base=${{ steps.set-shas.outputs.base }} --head=${{ steps.set-shas.outputs.head }} | tr '\n' ' ' | xargs)
           echo "apps=$AFFECTED" >> $GITHUB_OUTPUT
-          echo "Affected apps: $AFFECTED"
+          echo "Affected apps: '$AFFECTED'"
+          if [ -z "$AFFECTED" ]; then
+            echo "WARNING: No affected apps detected!"
+          fi
 
       - name: Build affected apps
         if: steps.affected.outputs.apps != ''
@@ -54,13 +66,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Debug affected apps
+        run: |
+          echo "Received affected apps: '${{ needs.detect-and-build.outputs.affected-apps }}'"
+          echo "Current matrix app: '${{ matrix.app }}'"
+
       - name: Check if app is affected
         id: check
         run: |
           if echo "${{ needs.detect-and-build.outputs.affected-apps }}" | grep -q "${{ matrix.app }}"; then
             echo "affected=true" >> $GITHUB_OUTPUT
+            echo "App ${{ matrix.app }} is affected"
           else
             echo "affected=false" >> $GITHUB_OUTPUT
+            echo "App ${{ matrix.app }} is NOT affected"
           fi
 
       - name: Setup Node
