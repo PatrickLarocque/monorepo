@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+# Build the regression app for production
 RUN npx nx build regression --configuration=production
 
 # Production stage
